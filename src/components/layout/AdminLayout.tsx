@@ -12,7 +12,8 @@ import {
   FileText, 
   Shield,
   LogOut,
-  Bell
+  Bell,
+  UserCog
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -27,6 +28,7 @@ interface MenuItem {
 const menuItems: MenuItem[] = [
   { id: "dashboard", label: "Dashboard", icon: Home, path: "/dashboard", roles: ["admin", "user"] },
   { id: "users", label: "Users", icon: Users, path: "/users", roles: ["admin"] },
+  { id: "user-update", label: "User Profile", icon: UserCog, path: "/user-update", roles: ["admin", "user"] },
   { id: "analytics", label: "Analytics", icon: BarChart3, path: "/analytics", roles: ["admin", "manager"] },
   { id: "reports", label: "Reports", icon: FileText, path: "/reports", roles: ["admin", "manager"] },
   { id: "permissions", label: "Permissions", icon: Shield, path: "/permissions", roles: ["admin"] },
@@ -60,20 +62,20 @@ export const AdminLayout = () => {
     <div className="min-h-screen bg-gray-50 flex w-full">
       {/* Sidebar */}
       <div className={cn(
-        "bg-blue-600 text-white transition-all duration-300",
+        "bg-blue-500 text-white transition-all duration-300",
         sidebarOpen ? "w-64" : "w-16"
       )}>
         <div className="flex flex-col h-full">
           {/* Logo Section */}
-          <div className="p-4 border-b border-blue-500">
+          <div className="p-4 border-b border-blue-400">
             <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-blue-400 rounded-lg flex items-center justify-center">
+              <div className="w-8 h-8 bg-blue-300 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-lg">A</span>
               </div>
               {sidebarOpen && (
                 <div>
                   <h1 className="font-bold text-lg">Admin Portal</h1>
-                  <p className="text-blue-200 text-xs">Management System</p>
+                  <p className="text-blue-100 text-xs">Management System</p>
                 </div>
               )}
             </div>
@@ -93,8 +95,8 @@ export const AdminLayout = () => {
                       className={cn(
                         "w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg transition-colors",
                         isActive 
-                          ? "bg-blue-500 text-white" 
-                          : "text-blue-100 hover:bg-blue-500 hover:text-white"
+                          ? "bg-blue-400 text-white" 
+                          : "text-blue-50 hover:bg-blue-400 hover:text-white"
                       )}
                     >
                       <Icon size={20} />
@@ -107,17 +109,17 @@ export const AdminLayout = () => {
           </nav>
 
           {/* User Section */}
-          <div className="p-4 border-t border-blue-500">
+          <div className="p-4 border-t border-blue-400">
             {sidebarOpen ? (
               <div className="flex items-center space-x-3 mb-3">
                 <img 
                   src={currentUser.avatar} 
                   alt={currentUser.name}
-                  className="w-10 h-10 rounded-full bg-blue-400"
+                  className="w-10 h-10 rounded-full bg-blue-300"
                 />
                 <div className="flex-1 min-w-0">
                   <p className="font-medium truncate">{currentUser.name}</p>
-                  <p className="text-blue-200 text-sm truncate">{currentUser.email}</p>
+                  <p className="text-blue-100 text-sm truncate">{currentUser.email}</p>
                 </div>
               </div>
             ) : (
@@ -125,7 +127,7 @@ export const AdminLayout = () => {
                 <img 
                   src={currentUser.avatar} 
                   alt={currentUser.name}
-                  className="w-8 h-8 rounded-full bg-blue-400"
+                  className="w-8 h-8 rounded-full bg-blue-300"
                 />
               </div>
             )}
@@ -134,7 +136,7 @@ export const AdminLayout = () => {
               onClick={handleLogout}
               variant="ghost"
               size="sm"
-              className="w-full justify-start text-blue-100 hover:bg-blue-500 hover:text-white"
+              className="w-full justify-start text-blue-50 hover:bg-blue-400 hover:text-white"
             >
               <LogOut size={16} />
               {sidebarOpen && <span className="ml-2">Logout</span>}
